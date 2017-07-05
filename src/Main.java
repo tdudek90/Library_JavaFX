@@ -13,10 +13,14 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root, 600, 400));
         primaryStage.show();
+
+
+        ServerConnection connection = ServerConnection.getInstance();
     }
 
 
     public static void main(String[] args) {
         launch(args);
     }
+
 }
