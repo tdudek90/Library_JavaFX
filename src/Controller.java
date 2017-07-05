@@ -1,6 +1,5 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
@@ -35,23 +34,14 @@ public class Controller implements Initializable {
             while (resultSet.next()) {
                 String passwordFromDataBase = resultSet.getString("password");
                 if (passwordFromDataBase.equals(passwordText.getText())) {
-                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                    alert.setTitle("Sign in");
-                    alert.setContentText("Login successful");
-                    alert.showAndWait();
+                    Utils.openAlert("Sign in", "Login successful");
                 } else {
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Error");
-                    alert.setContentText("Wrong password");
-                    alert.showAndWait();
+                    Utils.openAlert("Error", "Wrong password");
                 }
                 counter++;
             }
             if (counter == 0) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("User don't exist");
-                alert.showAndWait();
+                Utils.openAlert("Error", "User don't exist");
             }
             statement.close();
         } catch (SQLException e) {
