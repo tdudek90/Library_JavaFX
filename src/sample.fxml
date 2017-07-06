@@ -13,7 +13,7 @@
    <center>
       <TabPane prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
         <tabs>
-          <Tab text="Logowanie">
+          <Tab text="Sign in">
                <content>
                   <GridPane alignment="TOP_CENTER">
                     <columnConstraints>
@@ -22,13 +22,13 @@
                     <rowConstraints>
                       <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                       <RowConstraints maxHeight="258.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="118.0" minHeight="0.0" prefHeight="57.0" vgrow="SOMETIMES" />
+                      <RowConstraints maxHeight="120.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                      <children>
                         <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
                            <children>
-                              <TextField fx:id="loginText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" style="-fx-border-color: blue;" />
-                              <PasswordField fx:id="passwordText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" />
+                              <TextField fx:id="loginText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Login" style="-fx-border-color: blue;" />
+                              <PasswordField fx:id="passwordText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Password" />
                            </children>
                         </VBox>
                         <Button alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signIn" prefHeight="25.0" prefWidth="100.0" text="Sign in" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
@@ -41,7 +41,37 @@
                   </GridPane>
                </content>
           </Tab>
-          <Tab text="Rejestracja" />
+            <Tab text="Registration">
+               <content>
+                  <GridPane alignment="TOP_CENTER">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.rowIndex="1">
+                           <children>
+                              <TextField fx:id="name" layoutX="210.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Login/name" style="-fx-border-color: blue;" />
+                              <TextField fx:id="lastName" layoutX="210.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Lastname" style="-fx-border-color: blue;" />
+                              <PasswordField fx:id="passwordRegText" layoutX="210.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Password" style="-fx-border-color: blue;" />
+                              <PasswordField fx:id="rePasswordText" layoutX="210.0" layoutY="94.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Repeat password" style="-fx-border-color: blue;" />
+                              <TextField fx:id="number" layoutX="210.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Phone number" style="-fx-border-color: blue;" />
+                           </children>
+                        </VBox>
+                        <Button alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#register" prefHeight="25.0" prefWidth="100.0" text="Register" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="REGISTRATION" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                           <font>
+                              <Font size="30.0" />
+                           </font>
+                        </Label>
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="258.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="120.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+               </content>
+            </Tab>
         </tabs>
       </TabPane>
    </center>
