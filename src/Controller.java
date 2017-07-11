@@ -3,7 +3,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.awt.event.MouseEvent;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -31,37 +30,38 @@ public class Controller implements Initializable {
 
 
     public void signIn() {
-        if (isFormLoginValid()) {
+        if (!isFormLoginValid()) {
             return;
-        }
-
-        System.out.println(loginText.getText() + " " + passwordText.getText());
-        Statement statement = ServerConnection.getInstance().getNewStatement();
-        ResultSet resultSet = null;
-        try {
-            resultSet = statement.executeQuery("SELECT * FROM user WHERE name ='" + loginText.getText() + "'");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            int counter = 0;
-            while (resultSet.next()) {
-                String passwordFromDataBase = resultSet.getString("password");
-                if (passwordFromDataBase.equals(passwordText.getText())) {
-                    Utils.openAlert("Sign in", "Login successful");
-                } else {
-                    Utils.openAlert("Error", "Wrong password");
+        } else {
+            System.out.println(loginText.getText() + " " + passwordText.getText());
+            Statement statement = ServerConnection.getInstance().getNewStatement();
+            ResultSet resultSet = null;
+            try {
+                resultSet = statement.executeQuery("SELECT * FROM user WHERE name ='" + loginText.getText() + "'");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            try {
+                int counter = 0;
+                while (resultSet.next()) {
+                    String passwordFromDataBase = resultSet.getString("password");
+                    if (passwordFromDataBase.equals(passwordText.getText())) {
+                        Utils.openAlert("Sign in", "Login successful");
+                    } else {
+                        Utils.openAlert("Error", "Wrong password");
+                    }
+                    counter++;
                 }
-                counter++;
+                if (counter == 0) {
+                    Utils.openAlert("Error", "User does not exist");
+                }
+                loginText.clear();
+                passwordText.clear();
+                statement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-            if (counter == 0) {
-                Utils.openAlert("Error", "User don't exist");
-            }
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
     }
 
     @Override
@@ -78,9 +78,9 @@ public class Controller implements Initializable {
         return false;
     }
 
-    public void register()  {
+    public void register() {
         try {
-            if (isLoginExist()){
+            if (isLoginExist()) {
                 Utils.openAlert("Error", "Login already exist");
                 return;
             }
@@ -101,6 +101,11 @@ public class Controller implements Initializable {
         }
         try {
             statement.execute();
+            name.clear();
+            lastName.clear();
+            passwordRegText.clear();
+            rePasswordText.clear();
+            number.clear();
             statement.close();
 
         } catch (SQLException e) {
