@@ -1,13 +1,18 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 
@@ -27,6 +32,19 @@ public class Controller implements Initializable {
     PasswordField rePasswordText;
     @FXML
     TextField number;
+
+    @FXML
+    TableView<Book> book;
+
+    @FXML
+    TableColumn<Book,Integer> id;
+    @FXML
+    TableColumn<Book, String> title;
+    @FXML
+    TableColumn<Book, String> author;
+    @FXML
+    TableColumn<Book,Integer> pages;
+
 
 
     public void signIn() {
@@ -66,9 +84,7 @@ public class Controller implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
-
 
     private boolean isFormLoginValid() {
         if (loginText.getText().trim().length() > 4 || passwordText.getText().trim().length() > 4) {
@@ -77,6 +93,7 @@ public class Controller implements Initializable {
         Utils.openAlert("Sign in", "Your login and password must be at least 4 characters long");
         return false;
     }
+
 
     public void register() {
         try {
@@ -116,10 +133,10 @@ public class Controller implements Initializable {
 
     private boolean isLoginExist() throws SQLException {
         ServerConnection serverConnection = ServerConnection.getInstance();
-        String imie = name.getText();
+        String name = this.name.getText();
         String sql = "SELECT * FROM user WHERE name = ?";
         PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
-        statement.setString(1, imie);
+        statement.setString(1, name);
         ResultSet resultSet = statement.executeQuery();
         if (resultSet.next()) {
             System.out.println("User exist");
@@ -128,6 +145,34 @@ public class Controller implements Initializable {
             System.out.println("User does not exist");
             return false;
         }
+    }
+
+    public void showBooks(){
+        title.setCellValueFactory(new PropertyValueFactory<>("title"));
+        author.setCellValueFactory(new PropertyValueFactory<>("author"));
+        pages.setCellValueFactory(new PropertyValueFactory<>("pages"));
+        id.setCellValueFactory(new PropertyValueFactory<>("id"));
+        book.getItems().setAll(bookList());
+    }
+
+    private List<Book> bookList()  {
+        Statement statement = ServerConnection.getInstance().getNewStatement();
+        List<Book> list = new ArrayList<>();
+        try {
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM book");
+            while (resultSet.next()) {
+                String title = resultSet.getString("title");
+                String author = resultSet.getString("author");
+                int pages = resultSet.getInt("pages");
+                int id = resultSet.getInt("id");
+
+                list.add(new Book(title,author,pages, id));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
 }
