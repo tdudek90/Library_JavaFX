@@ -1,11 +1,13 @@
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,19 +34,18 @@ public class Controller implements Initializable {
     PasswordField rePasswordText;
     @FXML
     TextField number;
-
     @FXML
     TableView<Book> book;
-
     @FXML
-    TableColumn<Book,Integer> id;
+    TableColumn<Book, Integer> id;
     @FXML
     TableColumn<Book, String> title;
     @FXML
     TableColumn<Book, String> author;
     @FXML
-    TableColumn<Book,Integer> pages;
-
+    TableColumn<Book, Integer> pages;
+    @FXML
+    Button signInButton;
 
 
     public void signIn() {
@@ -65,6 +66,7 @@ public class Controller implements Initializable {
                     String passwordFromDataBase = resultSet.getString("password");
                     if (passwordFromDataBase.equals(passwordText.getText())) {
                         Utils.openAlert("Sign in", "Login successful");
+                        switchToUserMenu();
                     } else {
                         Utils.openAlert("Error", "Wrong password");
                     }
@@ -105,13 +107,13 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
         ServerConnection serverConnection = ServerConnection.getInstance();
-        String sql = "INSERT INTO user (name, lastName, number, password) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO user (name, password, lastName, number) VALUES (?,?,?,?)";
         PreparedStatement statement = serverConnection.getNewPrepareStatement(sql);
         try {
             statement.setString(1, name.getText());
-            statement.setString(2, lastName.getText());
-            statement.setString(3, passwordRegText.getText());
-            statement.setString(4, rePasswordText.getText());
+            statement.setString(3, lastName.getText());
+            statement.setString(2, passwordRegText.getText());
+            statement.setString(2, rePasswordText.getText());
             statement.setString(4, number.getText());
         } catch (SQLException e) {
             e.printStackTrace();
@@ -147,7 +149,7 @@ public class Controller implements Initializable {
         }
     }
 
-    public void showBooks(){
+    public void showBooks() {
         title.setCellValueFactory(new PropertyValueFactory<>("title"));
         author.setCellValueFactory(new PropertyValueFactory<>("author"));
         pages.setCellValueFactory(new PropertyValueFactory<>("pages"));
@@ -155,7 +157,7 @@ public class Controller implements Initializable {
         book.getItems().setAll(bookList());
     }
 
-    private List<Book> bookList()  {
+    private List<Book> bookList() {
         Statement statement = ServerConnection.getInstance().getNewStatement();
         List<Book> list = new ArrayList<>();
         try {
@@ -166,13 +168,28 @@ public class Controller implements Initializable {
                 int pages = resultSet.getInt("pages");
                 int id = resultSet.getInt("id");
 
-                list.add(new Book(title,author,pages, id));
+                list.add(new Book(title, author, pages, id));
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
+
+    private void switchToUserMenu() {
+        Stage stage = (Stage) signInButton.getScene().getWindow();
+        Parent parent = null;
+        try {
+            parent = FXMLLoader.load(getClass().getResource("userMenu.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Scene userScene = new Scene(parent);
+        stage.setTitle("User Menu");
+        stage.setResizable(false);
+        stage.setScene(userScene);
+        stage.show();
+    }
+
 
 }

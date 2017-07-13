@@ -31,7 +31,7 @@
                               <PasswordField fx:id="passwordText" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="200.0" promptText="Password" />
                            </children>
                         </VBox>
-                        <Button alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#signIn" prefHeight="25.0" prefWidth="100.0" text="Sign in" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
+                        <Button fx:id="signInButton" alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#signIn" onMouseClicked="#signIn" prefHeight="25.0" prefWidth="100.0" text="Sign in" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
                         <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="SIGN IN" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                            <font>
                               <Font size="30.0" />
@@ -60,36 +60,6 @@
                               <Font size="30.0" />
                            </font>
                         </Label>
-                     </children>
-                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                     </columnConstraints>
-                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="258.0" minHeight="10.0" prefHeight="237.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="120.0" minHeight="0.0" prefHeight="60.0" vgrow="SOMETIMES" />
-                     </rowConstraints>
-                  </GridPane>
-               </content>
-            </Tab>
-            <Tab text="Books">
-               <content>
-                  <GridPane alignment="TOP_CENTER">
-                     <children>
-                        <Button alignment="TOP_CENTER" contentDisplay="TOP" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#showBooks" prefHeight="25.0" prefWidth="100.0" text="Show" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="TOP" />
-                        <Label alignment="CENTER" prefHeight="17.0" prefWidth="600.0" text="Show all books" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
-                           <font>
-                              <Font size="30.0" />
-                           </font>
-                        </Label>
-                        <TableView fx:id="book" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-                          <columns>
-                              <TableColumn fx:id="id" minWidth="-Infinity" prefWidth="30.0" text="ID" />
-                            <TableColumn fx:id="title" minWidth="-Infinity" prefWidth="150.0" text="TITLE" />
-                              <TableColumn fx:id="author" minWidth="-Infinity" prefWidth="100.0" text="AUTHOR" />
-                              <TableColumn fx:id="pages" minWidth="-Infinity" prefWidth="70.0" text="PAGES" />
-                          </columns>
-                        </TableView>
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
